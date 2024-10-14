@@ -49,7 +49,7 @@ data = [
 ]
 
 
-randomURLs = ["https://example.com", "https://example.org", "https://purplebubble.org", "https://kieranklukas.com","https://stackoverflow.com"]
+randomURLs = ["https://example.com", "https://example.org", "https://purplebubble.org", "https://kieranklukas.com","https://stackoverflow.com","https://hardfork.ngo"]
 
 
 
@@ -63,3 +63,7 @@ def read_feed():
 def read_feed():
     return RedirectResponse(randomURLs[random.randint(0,len(randomURLs)-1)])
 
+
+PORT = 8000
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=PORT)

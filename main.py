@@ -5,6 +5,17 @@ from fastapi.responses import RedirectResponse
 
 import random
 
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+
+# Access environment variables as if they came from the actual environment
+PORT = int(os.getenv('PORT'))
+print(PORT)
+
+
 app = FastAPI()
 
 
@@ -64,6 +75,6 @@ def read_feed():
     return RedirectResponse(randomURLs[random.randint(0,len(randomURLs)-1)])
 
 
-PORT = 8000
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=PORT)

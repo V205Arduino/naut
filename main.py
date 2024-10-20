@@ -8,12 +8,27 @@ import random
 from dotenv import load_dotenv
 import os
 
+import json
+import time
+
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    type: str
+    data: str 
+    title: str
+    timestamp: int = None
+
+
+
+app = FastAPI()
+
+
 
 load_dotenv()
 
-# Access environment variables as if they came from the actual environment
 PORT = int(os.getenv('PORT'))
-print(PORT)
 
 
 app = FastAPI()
@@ -23,6 +38,28 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
+
+@app.post("/urls")
+def add_url(item: Item):
+  # Load the data from the file
+
+  item.timestamp = int(time.time())  # Get current timestamp
+  with open("data/urls.json", "r") as f:
+      URLs = json.load(f)
+      f.close()
+  
+  URLs.append(dict(item))
+  with open("data/urls.json", "w") as f:
+    json.dump(URLs, f)
+    f.close()
+
+
+  # Print the data
+  print(URLs)
+
+  print(item)
+  return item
+#curl -X POST http://127.0.0.1:8000/urls
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
@@ -60,8 +97,6 @@ data = [
 ]
 
 
-randomURLs = ["https://example.com", "https://example.org", "https://purplebubble.org", "https://kieranklukas.com","https://stackoverflow.com","https://hardfork.ngo"]
-
 
 
 @app.get("/feed")#{showAmount}")
@@ -71,10 +106,15 @@ def read_feed():
 
 
 @app.get("/random")
-def read_feed():
-    return RedirectResponse(randomURLs[random.randint(0,len(randomURLs)-1)])
+def random_URL():
+  random.seed()
+  with open("data/urls.json", "r") as f:
+      URLs = json.load(f)
+
+  randomNum = random.randint(0,len(URLs)-1)
+  return RedirectResponse(URLs[randomNum]["data"])
 
 
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=PORT)
+# @app.post("/items/")
+# async def create_item(item: Item):
+#     return item

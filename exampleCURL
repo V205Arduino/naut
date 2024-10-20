@@ -1,0 +1,9 @@
+curl -X POST \
+  http://localhost:8000/urls \
+  -H 'Content-Type: application/json' \
+  -d '{
+            "type": "URL",
+            "data": "https://www.example.com/article1",
+            "title": "Example Article 1",
+            "timestamp": Undefined
+        }'

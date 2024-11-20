@@ -1,7 +1,3 @@
-'''
-Saves URLs posted to it, idk how I forgot aaaa need to lok at exampeCurle
-'''
-
 from typing import Union
 
 from fastapi import FastAPI
@@ -17,7 +13,6 @@ import time
 
 from pydantic import BaseModel
 
-# import uvicorn
 
 class Item(BaseModel):
     type: str
@@ -33,16 +28,15 @@ app = FastAPI()
 
 load_dotenv()
 
-# PORT = int(os.getenv('PORT'))
+PORT = int(os.getenv('PORT'))
 
 
 app = FastAPI()
 
 
-@app.get("/health")
+@app.get("/")
 def read_root():
     return {"Hello": "World"}
-
 
 
 @app.post("/urls")
@@ -124,7 +118,3 @@ def random_URL():
 # @app.post("/items/")
 # async def create_item(item: Item):
 #     return item
-
-
-# if __name__ == "__main__":
-#   uvicorn.run(app, host="0.0.0.0", port=30000)

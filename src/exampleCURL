@@ -4,6 +4,5 @@ curl -X POST \
   -d '{
             "type": "URL",
             "data": "https://www.example.com/article1",
-            "title": "Example Article 1",
-            "timestamp": Undefined
-        }'
+            "title": "Example Article 1"
+  }'

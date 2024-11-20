@@ -1,6 +1,11 @@
+
+'''
+Fills data/urls.json with some example URLs for when I accidentally delete it.
+
+'''
+
 import json
 
-# The list that you want to save as JSON
 
 
 URLs = [
